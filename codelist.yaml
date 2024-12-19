@@ -1,0 +1,19 @@
+name: Download ABS Data Codelist
+
+# This workflow runs on push to any branch
+on:
+  push: {}
+
+jobs:
+  download_data:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install curl
+      run: sudo apt-get update && sudo apt-get install -y curl
+
+    - name: Download data
+      run: |
+        curl -sSL -H "Accept: application/json" https://data.api.abs.gov.au/rest/codelist/ABS/CL_TSEST > data.json
+        echo "Downloaded data and saved to data.json"
